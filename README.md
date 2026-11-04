@@ -37,7 +37,7 @@ Ou ouvrir http://localhost:8000/tests.html dans le navigateur.
 
 | Fichier         | Rôle                                                    |
 |-----------------|---------------------------------------------------------|
-| `index.html`    | Structure de la page                                    |
+| `index.html`    | Structure de la page, logo HELORA (SVG) et numéro de version |
 | `style.css`     | Thème HELORA                                            |
 | `calculator.js` | Calcul d'une expression (sans `eval`)                   |
 | `input.js`      | Gestion de la saisie : quelle touche fait quoi          |

@@ -13,12 +13,17 @@
 <body>
   <main class="calculator" aria-label="Calculatrice">
 
-    <!-- Sigle « +| » de la charte HELORA, suivi du nom de l'application -->
+    <!-- Logo HELORA redessiné en traits arrondis : le sigle « +| » forme le H, suivi de ELORA.
+         Vectoriel, il reste identique sur tous les appareils, sans dépendre d'une police. -->
     <header class="brand">
-      <svg class="brand__sigle" viewBox="0 0 35 29" aria-hidden="true">
-        <path d="M1.8 14.4H27M14.4 1.8V27M33 1.8V27" />
+      <svg class="brand__logo" viewBox="0 0 600 100" role="img" aria-label="HELORA">
+        <path d="M6 50H94M49 6V94M113 6V94" />                  <!-- +| = H -->
+        <path d="M197 6H149V94H197M149 50H190" />               <!-- E -->
+        <path d="M232 6V94H280" />                              <!-- L -->
+        <circle cx="345" cy="50" r="44" />                      <!-- O -->
+        <path d="M429 94V6H463A23 23 0 0 1 463 52H429M456 52L488 94" />  <!-- R -->
+        <path d="M512 94L553 6L594 94M525 66H581" />            <!-- A -->
       </svg>
-      <span class="brand__name">HELORA</span>
       <span class="brand__tag">Calculatrice</span>
     </header>
 
@@ -56,6 +61,9 @@
       <button class="key" data-value="," aria-label="Virgule">,</button>
       <button class="key key--equals" data-action="equals" aria-label="Égal">=</button>
     </section>
+
+    <!-- Numéro de version : à mettre à jour à chaque étape (et dans package.json) -->
+    <footer class="version">v5</footer>
 
   </main>
 

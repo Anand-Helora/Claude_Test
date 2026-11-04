@@ -70,20 +70,16 @@ body {
   color: var(--helora-vert-fonce);
 }
 
-/* Sigle « +| » : traits arrondis, comme dans le brandbook */
-.brand__sigle {
-  width: 30px;
-  height: auto;
+/* Logo : traits arrondis d'épaisseur égale, comme dans le brandbook */
+.brand__logo {
+  display: block;
+  height: 22px;
+  width: auto;
   fill: none;
   stroke: currentColor;
-  stroke-width: 3.6;
+  stroke-width: 12;
   stroke-linecap: round;
-}
-
-.brand__name {
-  font-size: 1.35rem;
-  font-weight: 300;
-  letter-spacing: 0.04em;
+  stroke-linejoin: round;
 }
 
 /* Sous-titre : capitales espacées en turquoise (usage « Belgika » de la charte) */
@@ -211,6 +207,15 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+/* ===== Numéro de version ===== */
+.version {
+  margin-top: 12px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: var(--helora-turquoise);
+}
+
 /* ===== Petits téléphones (ex. iPhone SE) : marges réduites pour tout voir sans défiler ===== */
 @media (orientation: portrait) and (max-height: 640px) {
   body        { padding: 8px; }
@@ -227,7 +232,7 @@ button:focus-visible {
   .calculator {
     display: grid;
     grid-template-columns: 1fr 1.25fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     column-gap: 16px;
     width: min(100%, 700px);
     padding: 14px;
@@ -235,7 +240,8 @@ button:focus-visible {
 
   .brand    { grid-column: 1; margin-bottom: 10px; }
   .display  { grid-column: 1; grid-row: 2; min-height: 0; margin: 0; }
-  .keypad   { grid-column: 2; grid-row: 1 / span 2; gap: 8px; }
+  .keypad   { grid-column: 2; grid-row: 1 / span 3; gap: 8px; }
+  .version  { grid-column: 1; grid-row: 3; margin-top: 8px; }
 
   /* 5 rangées de touches dans la hauteur disponible (marges : 2 × 8 + 2 × 14, espaces : 4 × 8) */
   .key {
