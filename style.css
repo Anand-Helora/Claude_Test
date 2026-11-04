@@ -31,6 +31,8 @@
   /* Typo : Gotham Rounded (police de la charte, payante) si installée,
      sinon Nunito, une police arrondie gratuite très proche */
   --font: "Gotham Rounded", "Nunito", system-ui, sans-serif;
+  /* Belgika (sous-titres de la charte) si installée, sinon la police principale */
+  --font-accent: "Belgika", var(--font);
 
   --radius-key: 18px;
   --gap: 10px;
@@ -61,15 +63,37 @@ body {
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 0 4px 14px;
-  font-size: 1.35rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
   color: var(--helora-vert-fonce);
 }
 
-.brand span {
+/* Sigle « +| » : traits arrondis, comme dans le brandbook */
+.brand__sigle {
+  width: 30px;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+}
+
+.brand__name {
+  font-size: 1.35rem;
   font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+/* Sous-titre : capitales espacées en turquoise (usage « Belgika » de la charte) */
+.brand__tag {
+  margin-left: auto;
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--helora-turquoise);
 }
 
@@ -103,6 +127,10 @@ body {
   word-break: break-all;
   text-align: right;
 }
+
+/* Longs nombres : texte plus petit pour rester sur une ligne */
+.result.is-long      { font-size: 2.2rem; }
+.result.is-very-long { font-size: 1.6rem; }
 
 /* Message d'erreur (division par zéro…) : seul usage de l'orange */
 .result.is-error {
@@ -149,7 +177,8 @@ body {
 }
 
 .key:hover  { filter: brightness(0.95); }
-.key:active { filter: brightness(0.88); transform: scale(0.96); }
+.key:active,
+.key.is-pressed { filter: brightness(0.88); transform: scale(0.96); }
 
 .key--function {
   background: var(--key-function);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Calculatrice</title>
+  <title>Calculatrice HELORA</title>
   <!-- Nunito : police arrondie gratuite, proche de Gotham Rounded (charte HELORA) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,14 @@
 <body>
   <main class="calculator" aria-label="Calculatrice">
 
-    <header class="brand">helora <span>calculatrice</span></header>
+    <!-- Sigle « +| » de la charte HELORA, suivi du nom de l'application -->
+    <header class="brand">
+      <svg class="brand__sigle" viewBox="0 0 35 29" aria-hidden="true">
+        <path d="M1.8 14.4H27M14.4 1.8V27M33 1.8V27" />
+      </svg>
+      <span class="brand__name">HELORA</span>
+      <span class="brand__tag">Calculatrice</span>
+    </header>
 
     <!-- Écran : expression en cours + aperçu du résultat -->
     <section class="display">
@@ -51,5 +58,7 @@
     </section>
 
   </main>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
