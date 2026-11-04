@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tests – Calculatrice</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; color: #044550; }
+    h1 { font-weight: 300; }
+    .summary { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+    .ok   { color: #009e99; }
+    .fail { color: #e16021; }
+    li { font-family: ui-monospace, monospace; padding: 2px 0; list-style: none; }
+  </style>
+</head>
+<body>
+  <h1>Tests de la calculatrice</h1>
+  <p class="summary" id="summary">Exécution…</p>
+  <ul id="list"></ul>
+
+  <script type="module">
+    import { runTests } from "./tests.js";
+
+    const results = runTests();
+    const passed = results.filter((r) => r.ok).length;
+
+    const summary = document.getElementById("summary");
+    summary.textContent = `${passed}/${results.length} tests réussis`;
+    summary.className = `summary ${passed === results.length ? "ok" : "fail"}`;
+
+    const list = document.getElementById("list");
+    for (const r of results) {
+      const li = document.createElement("li");
+      li.className = r.ok ? "ok" : "fail";
+      li.textContent = `${r.ok ? "✔" : "✘"} ${r.name}${r.detail ? "  — " + r.detail : ""}`;
+      list.appendChild(li);
+    }
+  </script>
+</body>
+</html>
