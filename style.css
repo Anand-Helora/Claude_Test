@@ -1,0 +1,177 @@
+/* =========================================================
+   Calculatrice – thème HELORA
+   Couleurs et typographie issues du brandbook HELORA
+   ========================================================= */
+
+:root {
+  /* Palette officielle */
+  --helora-vert-fonce: #044550;   /* Pantone 3165 C */
+  --helora-turquoise:  #009e99;   /* Pantone 326 C  */
+  --helora-blanc:      #ffffff;
+  --helora-orange:     #e16021;   /* Pantone 158 C – petites touches uniquement (alertes) */
+
+  /* Teintes du turquoise (50 %, 20 %, 10 %) */
+  --turquoise-50: #80cfcc;
+  --turquoise-20: #ccecea;
+  --turquoise-10: #e6f5f5;
+
+  /* Rôles dans l'interface */
+  --bg:            var(--helora-vert-fonce);
+  --surface:       var(--helora-blanc);
+  --screen:        var(--turquoise-10);
+  --key:           var(--turquoise-10);
+  --key-function:  var(--turquoise-20);
+  --key-operator:  var(--helora-turquoise);
+  --key-equals:    var(--helora-vert-fonce);
+  --text:          var(--helora-vert-fonce);
+  --text-muted:    var(--helora-turquoise);
+  --text-on-color: var(--helora-blanc);
+  --alert:         var(--helora-orange);
+
+  /* Typo : Gotham Rounded (police de la charte, payante) si installée,
+     sinon Nunito, une police arrondie gratuite très proche */
+  --font: "Gotham Rounded", "Nunito", system-ui, sans-serif;
+
+  --radius-key: 18px;
+  --gap: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--text);
+}
+
+/* ===== Conteneur ===== */
+.calculator {
+  width: min(100%, 360px);
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 28px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.brand {
+  margin: 0 4px 14px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--helora-vert-fonce);
+}
+
+.brand span {
+  font-weight: 300;
+  color: var(--helora-turquoise);
+}
+
+/* ===== Écran ===== */
+.display {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  min-height: 130px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  background: var(--screen);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.expression {
+  min-height: 1.5em;
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  word-break: break-all;
+  text-align: right;
+}
+
+.result {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  word-break: break-all;
+  text-align: right;
+}
+
+/* Message d'erreur (division par zéro…) : seul usage de l'orange */
+.result.is-error {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--alert);
+}
+
+.backspace {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: var(--text-muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.backspace:hover { background: var(--turquoise-20); }
+
+/* ===== Clavier ===== */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+}
+
+.key {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: var(--radius-key);
+  background: var(--key);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1.6rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.1s, transform 0.05s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.key:hover  { filter: brightness(0.95); }
+.key:active { filter: brightness(0.88); transform: scale(0.96); }
+
+.key--function {
+  background: var(--key-function);
+}
+
+.key--operator {
+  background: var(--key-operator);
+  color: var(--text-on-color);
+  font-size: 1.9rem;
+}
+
+.key--equals {
+  background: var(--key-equals);
+  color: var(--text-on-color);
+  font-size: 1.9rem;
+}
+
+.key--operator:hover,
+.key--equals:hover { filter: brightness(1.12); }
+
+/* Focus visible pour la navigation au clavier */
+button:focus-visible {
+  outline: 3px solid var(--helora-turquoise);
+  outline-offset: 2px;
+}

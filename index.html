@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculatrice</title>
+  <!-- Nunito : police arrondie gratuite, proche de Gotham Rounded (charte HELORA) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="calculator" aria-label="Calculatrice">
+
+    <header class="brand">helora <span>calculatrice</span></header>
+
+    <!-- Écran : expression en cours + aperçu du résultat -->
+    <section class="display">
+      <button class="backspace" data-action="backspace" aria-label="Effacer le dernier caractère">⌫</button>
+      <output class="expression" id="expression" aria-live="polite"></output>
+      <output class="result" id="result" aria-live="polite">0</output>
+    </section>
+
+    <!-- Clavier : data-value = caractère ajouté à l'expression, data-action = commande -->
+    <section class="keypad">
+      <button class="key key--function" data-action="clear">AC</button>
+      <button class="key key--function" data-value="(">(</button>
+      <button class="key key--function" data-value=")">)</button>
+      <button class="key key--operator" data-value="÷" aria-label="Diviser">÷</button>
+
+      <button class="key" data-value="7">7</button>
+      <button class="key" data-value="8">8</button>
+      <button class="key" data-value="9">9</button>
+      <button class="key key--operator" data-value="×" aria-label="Multiplier">×</button>
+
+      <button class="key" data-value="4">4</button>
+      <button class="key" data-value="5">5</button>
+      <button class="key" data-value="6">6</button>
+      <button class="key key--operator" data-value="−" aria-label="Soustraire">−</button>
+
+      <button class="key" data-value="1">1</button>
+      <button class="key" data-value="2">2</button>
+      <button class="key" data-value="3">3</button>
+      <button class="key key--operator" data-value="+" aria-label="Additionner">+</button>
+
+      <button class="key key--function" data-value="%" aria-label="Pourcentage">%</button>
+      <button class="key" data-value="0">0</button>
+      <button class="key" data-value="," aria-label="Virgule">,</button>
+      <button class="key key--equals" data-action="equals" aria-label="Égal">=</button>
+    </section>
+
+  </main>
+</body>
+</html>
