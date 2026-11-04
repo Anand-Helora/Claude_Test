@@ -106,12 +106,21 @@ const INPUT_CASES = [
   [["1", "2", "backspace"],        { expression: "1", display: "1" }],
   [["1", "2", "clear"],            { expression: "", display: "0" }],
   [["2", "=", "backspace"],        { expression: "", display: "0" }],
+
+  // Pas de zéros inutiles en tête de nombre
+  [["0", "0", "7"],                { expression: "7" }],
+  [["5", "+", "0", "3"],           { expression: "5+3" }],
+  [["0", ",", "0", "5"],           { expression: "0,05" }],
+  [["1", "0", "0"],                { expression: "100" }],
 ];
 
-// [event.key, touche attendue]
+// [event.key, event.code, touche attendue]
 const KEYBOARD_CASES = [
-  ["7", "7"], ["*", "×"], ["/", "÷"], ["-", "−"], [".", ","],
-  ["Enter", "="], ["Backspace", "backspace"], ["Escape", "clear"], ["a", null],
+  ["7", "Digit7", "7"], ["*", "", "×"], ["/", "", "÷"], ["-", "", "−"], [".", "", ","],
+  ["Enter", "Enter", "="], ["Backspace", "", "backspace"], ["Escape", "", "clear"], ["a", "KeyA", null],
+  // Pavé numérique, Verr. Num actif ou non
+  ["4", "Numpad4", "4"], ["ArrowLeft", "Numpad4", "4"], ["Delete", "NumpadDecimal", ","],
+  ["*", "NumpadMultiply", "×"], ["Enter", "NumpadEnter", "="],
 ];
 
 /** Lance tous les tests et renvoie la liste des résultats. */
@@ -152,9 +161,9 @@ export function runTests() {
     record(`touches [${keys.join(" ")}]`, wrong.length === 0, detail && `obtenu ${detail}`);
   }
 
-  for (const [key, expected] of KEYBOARD_CASES) {
-    const got = keyFromKeyboard(key);
-    record(`clavier "${key}" → ${expected}`, got === expected, got === expected ? "" : `obtenu ${got}`);
+  for (const [key, code, expected] of KEYBOARD_CASES) {
+    const got = keyFromKeyboard(key, code);
+    record(`clavier "${key}" (${code || "?"}) → ${expected}`, got === expected, got === expected ? "" : `obtenu ${got}`);
   }
 
   const spaced = formatExpression("−2×−3+(−1)");
