@@ -45,11 +45,18 @@ const KEYBOARD_MAP = {
 };
 
 /**
- * Traduit une touche du clavier d'ordinateur (event.key).
- * @param {string} key
+ * Traduit une touche du clavier d'ordinateur.
+ * @param {string} key  event.key, le caractère produit (ex. "4", "*", "Enter")
+ * @param {string} [code] event.code, la touche physique (ex. "Numpad4")
  * @returns {string | null} la touche correspondante, ou null si elle ne sert pas
  */
-export function keyFromKeyboard(key) {
+export function keyFromKeyboard(key, code = "") {
+  // Pavé numérique : reconnu par la touche physique, que Verr. Num soit actif ou non
+  // (sinon "4" envoie "ArrowLeft", et "," / "." envoie "Delete")
+  const numpadDigit = code.match(/^Numpad([0-9])$/);
+  if (numpadDigit) return numpadDigit[1];
+  if (code === "NumpadDecimal" || code === "NumpadComma") return ",";
+
   if (key in KEYBOARD_MAP) return KEYBOARD_MAP[key];
   if (/^[0-9+%(),]$/.test(key)) return key;
   return null;
@@ -201,7 +208,14 @@ function appendCharacter(expression, char) {
     return open > closed && /[0-9),%]/.test(last ?? "") ? expression + char : null;
   }
 
-  if (isDigit || char === "(") return withImplicitTimes(expression, char);
+  if (isDigit) {
+    // Pas de zéros inutiles en tête de nombre : "0" puis "7" donne "7", pas "07"
+    const currentNumber = expression.match(/[0-9,]*$/)[0];
+    if (currentNumber === "0") return char === "0" ? null : expression.slice(0, -1) + char;
+    return withImplicitTimes(expression, char);
+  }
+
+  if (char === "(") return withImplicitTimes(expression, char);
 
   return null;
 }

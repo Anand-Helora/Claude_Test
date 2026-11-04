@@ -190,5 +190,8 @@ export function formatResult(value) {
     return rounded.toExponential(6).replace(/\.?0+e/, "e").replace(".", ",");
   }
 
-  return rounded.toLocaleString("fr-BE", { maximumFractionDigits: 12 });
+  return NUMBER_FORMAT.format(rounded);
 }
+
+// Créé une seule fois : bien plus rapide que toLocaleString() à chaque appel
+const NUMBER_FORMAT = new Intl.NumberFormat("fr-BE", { maximumFractionDigits: 12 });

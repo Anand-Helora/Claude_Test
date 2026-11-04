@@ -106,7 +106,8 @@ body {
   justify-content: flex-end;
   min-height: 130px;
   margin-bottom: 16px;
-  padding: 14px 16px;
+  /* Marge du haut : le texte ne passe jamais sous le bouton ⌫ */
+  padding: 44px 16px 14px;
   background: var(--screen);
   border-radius: 20px;
   overflow: hidden;
@@ -152,7 +153,6 @@ body {
   cursor: pointer;
 }
 
-.backspace:hover { background: var(--turquoise-20); }
 
 /* ===== Clavier ===== */
 .keypad {
@@ -176,7 +176,16 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-.key:hover  { filter: brightness(0.95); }
+/* Pas de zoom quand on tape deux fois vite une touche sur mobile */
+button { touch-action: manipulation; }
+
+/* Survol uniquement avec une souris (sinon la couleur « colle » après un tap sur mobile) */
+@media (hover: hover) {
+  .key:hover { filter: brightness(0.95); }
+  .key--operator:hover,
+  .key--equals:hover { filter: brightness(1.12); }
+  .backspace:hover { background: var(--turquoise-20); }
+}
 .key:active,
 .key.is-pressed { filter: brightness(0.88); transform: scale(0.96); }
 
@@ -196,11 +205,46 @@ body {
   font-size: 1.9rem;
 }
 
-.key--operator:hover,
-.key--equals:hover { filter: brightness(1.12); }
-
 /* Focus visible pour la navigation au clavier */
 button:focus-visible {
   outline: 3px solid var(--helora-turquoise);
   outline-offset: 2px;
+}
+
+/* ===== Petits téléphones (ex. iPhone SE) : marges réduites pour tout voir sans défiler ===== */
+@media (orientation: portrait) and (max-height: 640px) {
+  body        { padding: 8px; }
+  .calculator { padding: 14px; }
+  .brand      { margin-bottom: 10px; }
+  .display    { margin-bottom: 12px; }
+  .key        { aspect-ratio: 6 / 5; }   /* touches un peu moins hautes que larges */
+}
+
+/* ===== Téléphone à l'horizontale : écran à gauche, clavier à droite ===== */
+@media (orientation: landscape) and (max-height: 500px) {
+  body { padding: 8px; }
+
+  .calculator {
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    grid-template-rows: auto 1fr;
+    column-gap: 16px;
+    width: min(100%, 700px);
+    padding: 14px;
+  }
+
+  .brand    { grid-column: 1; margin-bottom: 10px; }
+  .display  { grid-column: 1; grid-row: 2; min-height: 0; margin: 0; }
+  .keypad   { grid-column: 2; grid-row: 1 / span 2; gap: 8px; }
+
+  /* 5 rangées de touches dans la hauteur disponible (marges : 2 × 8 + 2 × 14, espaces : 4 × 8) */
+  .key {
+    aspect-ratio: auto;
+    height: calc((100vh - 76px) / 5);
+    height: calc((100dvh - 76px) / 5);
+    min-height: 40px;
+    font-size: 1.3rem;
+  }
+  .key--operator,
+  .key--equals { font-size: 1.5rem; }
 }

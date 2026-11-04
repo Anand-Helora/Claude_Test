@@ -48,7 +48,7 @@ calculator.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.ctrlKey || event.metaKey || event.altKey) return;   // laisse passer Ctrl+C, etc.
 
-  const key = keyFromKeyboard(event.key);
+  const key = keyFromKeyboard(event.key, event.code);
   if (!key) return;
 
   // Évite qu'Entrée « clique » aussi sur le bouton qui a le focus
